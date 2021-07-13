@@ -1,7 +1,7 @@
 # procut
 ***under developement***
 
-| It's a hobby project :) 
+It's a hobby project :) 
 
 # cut video commande
 	$ ffmpeg -i input -ss hh:mm:ss -to hh:mm:ss -async 1 output
