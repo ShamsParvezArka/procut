@@ -1,0 +1,20 @@
+# Procut
+*under developement*
+
+## About
+Procut is a minimalist time-efficient video editor focued on the power users. It's a 'ffmpeg' based video editor.
+
+## Functionality
+Cutting and joining
+
+## Linux Installation
+step 1: Downlaod the Procut repository:
+	$ gti clone https://github.com/ShamsParvezArka/procut.git
+step 2: Goto the repository directory:
+	$ cd procut/
+step 3: Run the following commands to intall Procut:
+	$ sudo chmod +x build.sh
+	$ ./buid.sh
+> **n.b: Don't remove these directories(input/,process/,output/) after installation! Otherwise Procut won't run.**
+
+
