@@ -1,5 +1,6 @@
 # Procut
-*under developement*
+***under developement***
+
 Procut is a minimalist time-efficient video editor focued on the power users. It's a 'ffmpeg' based video editor.
 
 ## Functionality
