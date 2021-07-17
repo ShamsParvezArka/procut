@@ -4,15 +4,45 @@
 #include <stdlib.h>
 
 #define CAP 1000
+int k = 1;
+
+int cut(int argc, char *argv[], char path[CAP], char buff[CAP]);
 
 int main(int argc, char *argv[])
 {
-	int k;
-	char path[CAP], buff[CAP], cmd[CAP], outname[CAP];
-	k = 1;
+	int choice;
+	char path[CAP], buff[CAP], outname[CAP];
 	printf("[*] Video path:");
 	scanf("%[^\n]", path);
+	printf("\t 1. Cut\n");
+	printf("\t 2. Cut & Join\n");
+	printf("[*] Choose option");
+	scanf("%d", &choice);
 
+	FILE *fp;
+	
+	if(choice==1){
+		cut(argc, argv, path, buff);
+		return 0;
+	}
+	
+	else if(choice==2){
+		cut(argc, argv, path, buff);
+		fp = fopen("process/list", "w+");
+		for(int i=1; i<k; i++){
+			fprintf(fp, "file %d.mp4\n", i);
+		}
+		fclose(fp);
+
+		system("ffmpeg -safe 0 -f concat -i process/list -c copy ~/programming/procut/output/final.mp4");
+
+		return 0;
+	}
+}
+
+
+int cut(int argc, char *argv[], char path[CAP], char buff[CAP])
+{
 	FILE *fp;
 	fp = fopen("process/list", "w+");
 	
@@ -29,21 +59,11 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 	fclose(fp);
-	
+
 	fp = fopen("process/list", "r");
 	for(int i=1; i<k; i++){
 		fgets(buff, CAP, (FILE*)fp);
 		system(buff);
 	}
 	fclose(fp);
-
-	fp = fopen("process/list", "w+");
-	for(int i=1; i<k; i++){
-		fprintf(fp, "file %d.mp4\n", i);
-	}
-	fclose(fp);
-
-	system("ffmpeg -safe 0 -f concat -i process/list -c copy ~/programming/procut/output/final.mp4");
-
-	return 0;
 }
