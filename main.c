@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	scanf("%[^\n]", path);
 	printf("\t 1. Cut\n");
 	printf("\t 2. Cut & Join\n");
-	printf("[*] Choose option");
+	printf("[*] Choose option:");
 	scanf("%d", &choice);
 
 	FILE *fp;
