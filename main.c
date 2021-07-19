@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 		}
 		fclose(fp);
 
-		system("ffmpeg -safe 0 -f concat -i process/list -c copy ~/programming/procut/output/final.mp4");
+		system("ffmpeg -safe 0 -f concat -i process/list -c copy output/final.mp4");
 
 		return 0;
 	}
