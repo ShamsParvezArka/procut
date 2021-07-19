@@ -6,6 +6,9 @@ Procut is a minimalist time-efficient video editor focued on the power users. It
 ## Functionality
 Cutting and joining
 
+## Pre-installation
+You must have to install [ffmpeg](http://ffmpeg.org/about.html) on your machine.Write the following command to install it.
+	$ sudo apt install ffmpeg 
 ## Linux Installation
 step 1: Downlaod the Procut repository:
 
