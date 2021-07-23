@@ -1,2 +1,2 @@
 mkdir bin input process output
-gcc -g -o bin/procut main.c
+gcc -g -o bin/procut corefn.h main.c 
