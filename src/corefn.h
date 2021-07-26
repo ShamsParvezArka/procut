@@ -16,18 +16,18 @@ void only_join(void);
 void cut(int argc, char *argv[], char in_path[CAP], char buff[CAP])
 {
 	FILE *fp;
-	fp = fopen("process/l", "w+");
+	fp = fopen("output/l", "w+");
 		
 	for(int i=1; i<argc; i++){
-		if(i%2 != 0){
-			fprintf(fp, "ffmpeg -i %s -ss %s -to %s -c copy process/%d.mp4\n",in_path,argv[i],argv[i+1],k);
+		if(i%2 == 0){
+			fprintf(fp, "ffmpeg -i %s -ss %s -to %s -c copy output/%d.mp4\n",in_path,argv[i],argv[i+1],k);
 			k += 1;
 		}
 	}
 
 	fclose(fp);
 
-	fp = fopen("process/l", "r");
+	fp = fopen("output/l", "r");
 	for(int i=1; i<k; i++){
 		fgets(buff, CAP, (FILE*)fp);
 		system(buff);
@@ -37,7 +37,7 @@ void cut(int argc, char *argv[], char in_path[CAP], char buff[CAP])
 
 void join(void)
 {
-	system("ffmpeg -f concat -i process/l -c copy output/final.mp4");
+	system("ffmpeg -f concat -i output/l -c copy output/final.mp4");
 }
 
 void only_join(void)
