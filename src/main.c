@@ -10,7 +10,6 @@
 
 int main(int argc, char *argv[])
 {
-	int choice;
 	double cpu_time;
 	char ch, in_path[CAP], buff[CAP], *parm_join, *parm_cut, *parm_cut_merge, *parm_help;
 	time_t start, end;
@@ -28,12 +27,6 @@ int main(int argc, char *argv[])
 	else if(((argc%2) == 0) && (strcmp(argv[1],parm_cut) == 0)){
 		printf("[\033[0;33m*\033[0m] Source video path: ");
 		scanf("%[^\n]", in_path);
-		printf("\n");
-		printf("\t 1. Cut\n");
-		printf("\t 2. Cut & Join\n");
-		printf("\t 3. Only Join\n");
-		printf("[\033[0;33m*\033[0m] Choose option: ");
-		scanf("%d", &choice);
 		
 		FILE *fp;
 		
