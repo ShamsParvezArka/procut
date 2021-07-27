@@ -10,8 +10,8 @@
 int k = 1;
 
 void cut(int argc, char *argv[], char in_path[CAP], char buff[CAP]);
-void join(void);
-void only_join(void);
+void merge(void);
+void only_merge(void);
 
 void cut(int argc, char *argv[], char in_path[CAP], char buff[CAP])
 {
@@ -35,12 +35,12 @@ void cut(int argc, char *argv[], char in_path[CAP], char buff[CAP])
 	fclose(fp);
 }
 
-void join(void)
+void merge(void)
 {
 	system("ffmpeg -f concat -i output/l -c copy output/final.mp4");
 }
 
-void only_join(void)
+void only_merge(void)
 {
 	time_t start, end;
 	double cpu_time;
@@ -48,11 +48,11 @@ void only_join(void)
 	FILE *fp;
 	DIR *path;
 	struct dirent *dir;
-	path = opendir("join");
+	path = opendir("merge");
 	
 	if(path){	
 		time(&start);
-		fp = fopen("join/l", "w+");
+		fp = fopen("merge/l", "w+");
 		while((dir = readdir(path)) != NULL){
 			if(dir->d_name[0] != '.' && dir->d_name[0] != 'l'){
 				fprintf(fp, "file %s\n", dir->d_name);
@@ -60,7 +60,7 @@ void only_join(void)
 		}
 		fclose(fp);
 		closedir(path);
-		system("ffmpeg -f concat -i join/l -c copy output/final.mp4");
+		system("ffmpeg -f concat -i merge/l -c copy output/final.mp4");
 		time(&end);
 	
 		cpu_time = difftime(end,start);

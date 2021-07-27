@@ -1,0 +1,37 @@
+NAME
+	Procut 
+
+SYNOPSIS
+	./bin/procut [OPTION]... [MANUAL COMMAND]
+
+DESCRIPTION
+	A minimalist time-efficient video editor focued on the power users based on 'ffmpeg'.
+
+	Arguments:
+	
+	--only-cut
+		cut a video don't merge together.
+
+	--only-merge
+		join a video.
+
+	--cut-merge
+		cut and merge a video together.
+
+	Manual commmans:
+
+	*only needed if '--cut-merge' or '--only-cut' options are used
+		[start time] [end time] ... ... [start time] [end time]
+	
+	*only needed if '--only-merge' option is used
+		Place clips in the 'join' directory whiches will be merged together.
+
+EXAMPLE
+	(1) ./bin/procut --cut-merge 00:00:00 00:00:10 00:00:12 00:00:22
+	(2) ./bin/procut --only-cut 00:00:00 00:00:10 00:00:12 00:00:22
+	(3) ./bin/procut --only-merge
+
+
+AUTHOR
+	Shams Parvez Arka
+	
