@@ -44,6 +44,9 @@ int main(int argc, char *argv[])
 	}
 		
 	else if(((argc%2) == 0) && (strcmp(argv[1], parameters[2]) == 0)){
+		printf("[\033[0;33m*\033[0m] Source video path: ");
+		scanf("%[^\n]", in_path);
+		
 		FILE *fp;
 		time(&start);
 		cut(argc, argv, in_path, buff);
