@@ -11,20 +11,20 @@
 int main(int argc, char *argv[])
 {
 	double cpu_time;
-	char ch, in_path[CAP], buff[CAP], *parm_join, *parm_cut, *parm_cut_merge, *parm_help;
+	char ch, in_path[CAP], buff[CAP], *parameters[CAP];
 	time_t start, end;
 	
-	parm_join = "--only-merge";
-	parm_cut =  "--only-cut";
-	parm_cut_merge = "--cut-merge";
-	parm_help = "--help";
+	parameters[0] = "--only-merge";
+	parameters[1] = "--only-cut";
+	parameters[2] = "--cut-merge";
+	parameters[3] = "--help";
 
-	if(strcmp(argv[1],parm_join) == 0){
+	if(strcmp(argv[1],parameters[0]) == 0){
 		only_merge();
 		return 0;
 	}
 	
-	else if(((argc%2) == 0) && (strcmp(argv[1],parm_cut) == 0)){
+	else if(((argc%2) == 0) && (strcmp(argv[1],parameters[1]) == 0)){
 		printf("[\033[0;33m*\033[0m] Source video path: ");
 		scanf("%[^\n]", in_path);
 		
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 		
-	else if(((argc%2) == 0) && (strcmp(argv[1], parm_cut_merge) == 0)){
+	else if(((argc%2) == 0) && (strcmp(argv[1], parameters[2]) == 0)){
 		FILE *fp;
 		time(&start);
 		cut(argc, argv, in_path, buff);
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
 	}
 
-	else if(strcmp(argv[1], parm_help) == 0){
+	else if(strcmp(argv[1], parameters[3]) == 0){
 		FILE *fp;
 		fp = fopen("src/help", "r");
 		while((ch = fgetc(fp)) != EOF){
