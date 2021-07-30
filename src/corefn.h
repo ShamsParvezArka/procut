@@ -9,11 +9,11 @@
 
 int k = 1;
 
-void cut(int argc, char *argv[], char in_path[CAP], char buff[CAP]);
-void merge(void);
+void cut(int argc, char *argv[], char in_path[CAP], char buf[CAP]);
+void merge(char buf[CAP]);
 void only_merge(void);
 
-void cut(int argc, char *argv[], char in_path[CAP], char buff[CAP])
+void cut(int argc, char *argv[], char in_path[CAP], char buf[CAP])
 {
 	FILE *fp;
 	fp = fopen("output/l", "w+");
@@ -29,44 +29,48 @@ void cut(int argc, char *argv[], char in_path[CAP], char buff[CAP])
 
 	fp = fopen("output/l", "r");
 	for(int i=1; i<k; i++){
-		fgets(buff, CAP, (FILE*)fp);
-		system(buff);
+		fgets(buf, CAP, (FILE*)fp);
+		system(buf);
 	}
 	fclose(fp);
 }
 
-void merge(void)
+void merge(char buf[CAP])
 {
+
+	FILE *fp;
+	fp = fopen("output/l", "w+");
+	for(int i=1; i<k; i++){
+		fprintf(fp, "file %d.mp4\n", i);
+	}
+	fclose(fp);
 	system("ffmpeg -f concat -i output/l -c copy output/final.mp4");
+	
+	for(int i=1; i<k; i++){
+		sprintf(buf, "output/%d.mp4", i);
+		remove(buf);
+	}
+
+	
 }
 
 void only_merge(void)
 {
-	time_t start, end;
-	double cpu_time;
-
 	FILE *fp;
 	DIR *path;
 	struct dirent *dir;
 	path = opendir("merge");
 	
-	if(path){	
-		time(&start);
+	if(path){
 		fp = fopen("merge/l", "w+");
 		while((dir = readdir(path)) != NULL){
-			if(dir->d_name[0] != '.' && dir->d_name[0] != 'l'){
-				fprintf(fp, "file %s\n", dir->d_name);
+			if(dir -> d_name[0] != '.' && dir -> d_name[0] != 'l'){
+				fprintf(fp, "file %s\n", dir -> d_name);
 			}
 		}
 		fclose(fp);
 		closedir(path);
-		system("ffmpeg -f concat -i merge/l -c copy output/final.mp4");
-		time(&end);
-	
-		cpu_time = difftime(end,start);
-		printf("\n");
-		printf("[\033[0;33mINFO\033[0m] Video exported in the 'output' directory\n");
-		printf("[\033[0;32mSUCESS\033[0m] Exporting video done in %f seconds\n", cpu_time);
+		system("ffmpeg -f concat -i merge/l -c copy output/final.mp4");	
 	}
 
 }

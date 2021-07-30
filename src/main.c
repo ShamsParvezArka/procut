@@ -11,7 +11,7 @@
 int main(int argc, char *argv[])
 {
 	double cpu_time;
-	char ch, in_path[CAP], buff[CAP], *parameters[CAP];
+	char ch, in_path[CAP], buf[CAP], *parameters[CAP];
 	time_t start, end;
 	
 	parameters[0] = "--only-merge";
@@ -19,8 +19,15 @@ int main(int argc, char *argv[])
 	parameters[2] = "--cut-merge";
 	parameters[3] = "--help";
 
-	if(strcmp(argv[1],parameters[0]) == 0){
+	if(strcmp(argv[1],parameters[0]) == 0){	
+		time(&start);
 		only_merge();
+		time(&end);
+		cpu_time = difftime(end,start);	
+		printf("\n");
+		printf("[\033[0;33mINFO\033[0m] Video exported in the 'output' directory\n");
+		printf("[\033[0;32mSUCESS\033[0m] Exporting video done in %f seconds\n", cpu_time);
+		printf("\n");
 		return 0;
 	}
 	
@@ -31,7 +38,7 @@ int main(int argc, char *argv[])
 		FILE *fp;
 		
 		time(&start);
-		cut(argc, argv, in_path, buff);
+		cut(argc, argv, in_path, buf);
 		time(&end);	
 
 		cpu_time = difftime(end,start);
@@ -47,15 +54,9 @@ int main(int argc, char *argv[])
 		printf("[\033[0;33m*\033[0m] Source video path: ");
 		scanf("%[^\n]", in_path);
 		
-		FILE *fp;
 		time(&start);
-		cut(argc, argv, in_path, buff);
-		fp = fopen("output/l", "w+");
-		for(int i=1; i<k; i++){
-			fprintf(fp, "file %d.mp4\n", i);
-		}
-		fclose(fp);
-		merge();
+		cut(argc, argv, in_path, buf);
+		merge(buf);
 		time(&end);
 
 		cpu_time = difftime(end,start); 
