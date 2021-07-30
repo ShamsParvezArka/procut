@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
-#include "corefn.h"
+#include "cfn.h"
 
 #define CAP 1000
 
