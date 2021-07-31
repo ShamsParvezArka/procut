@@ -10,7 +10,7 @@ DESCRIPTION
 	Arguments:
 	
 	--only-cut
-		cut a video don't merge together.
+		cut a video
 
 	--only-merge
 		join a video.
@@ -24,7 +24,7 @@ DESCRIPTION
 		[start time] [end time] ... ... [start time] [end time]
 	
 	*only needed if '--only-merge' option is used
-		Place clips in the 'join' directory whiches will be merged together.
+		Place video clips in the 'join' directory whiches will be merged together.
 
 EXAMPLE
 	(1) ./bin/procut --cut-merge 00:00:00 00:00:10 00:00:12 00:00:22

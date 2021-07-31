@@ -18,14 +18,14 @@ int main(int argc, char *argv[])
 	parameters[1] = "--only-cut";
 	parameters[2] = "--cut-merge";
 	parameters[3] = "--help";
-
+	
 	if(strcmp(argv[1],parameters[0]) == 0){	
 		time(&start);
 		only_merge();
 		time(&end);
 		cpu_time = difftime(end,start);	
 		printf("\n");
-		printf("[\033[0;33mINFO\033[0m] Video exported in the 'output' directory\n");
+		printf("[\033[0;33m INFO\033[0m ] Video exported in the 'output' directory\n");
 		printf("[\033[0;32mSUCESS\033[0m] Exporting video done in %f seconds\n", cpu_time);
 		printf("\n");
 		return 0;
@@ -33,40 +33,51 @@ int main(int argc, char *argv[])
 	
 	else if(((argc%2) == 0) && (strcmp(argv[1],parameters[1]) == 0)){
 		printf("[\033[0;33m*\033[0m] Source video path: ");
-		scanf("%[^\n]", in_path);
+		scanf("%[^\n]", in_path);			
 		
 		FILE *fp;
-		
-		time(&start);
-		cut(argc, argv, in_path, buf);
-		time(&end);	
-
-		cpu_time = difftime(end,start);
-		printf("\n");
-		printf("[\033[0;33mINFO\033[0m] All trimmed videos are saved in the 'output' directory\n");	
-		printf("[\033[0;32mSUCESS\033[0m] Exporting video done in %f s\n", cpu_time);
-		printf("\n");
-		
-		return 0;
+		if((fp = fopen(in_path, "r"))){
+			time(&start);
+			cut(argc, argv, in_path, buf);
+			time(&end);	
+	
+			cpu_time = difftime(end,start);
+			printf("\n");
+			printf("[\033[0;33m INFO\033[0m ] All trimmed videos are saved in the 'output' directory\n");	
+			printf("[\033[0;32mSUCESS\033[0m] Exporting video done in %f s\n", cpu_time);
+			printf("\n");
+			
+			return 0;
+		}
+		else{
+			fprintf(stderr, "[\033[0;31mERROR\033[0m] Cannot start '%s' : No such file\n", in_path);
+			return 0;
+		}
 	}
 		
 	else if(((argc%2) == 0) && (strcmp(argv[1], parameters[2]) == 0)){
-		printf("[\033[0;33m*\033[0m] Source video path: ");
-		scanf("%[^\n]", in_path);
-		
-		time(&start);
-		cut(argc, argv, in_path, buf);
-		merge(buf);
-		time(&end);
-
-		cpu_time = difftime(end,start); 
-		printf("\n");
-		printf("[\033[0;33mINFO\033[0m] Video exported in the 'output' directory\n");
-		printf("[\033[0;32mSUCESS\033[0m] Exporting video done in %f s\n", cpu_time); 
-		printf("\n");
-
-		return 0;
-
+		FILE *fp;
+		if((fp = fopen(in_path, "r"))){
+			printf("[\033[0;33m*\033[0m] Source video path: ");
+			scanf("%[^\n]", in_path);
+			
+			time(&start);
+			cut(argc, argv, in_path, buf);
+			merge(buf);
+			time(&end);
+	
+			cpu_time = difftime(end,start); 
+			printf("\n");
+			printf("[\033[0;33m INFO\033[0m ] Video exported in the 'output' directory\n");
+			printf("[\033[0;32mSUCESS\033[0m] Exporting video done in %f s\n", cpu_time); 
+			printf("\n");
+	
+			return 0;
+		}
+		else{
+			fprintf(stderr, "[\033[0;31mERROR\033[0m] Cannot start '%s' : No such file\n", in_path);
+			return 0;
+		}
 	}
 
 	else if(strcmp(argv[1], parameters[3]) == 0){
@@ -79,9 +90,16 @@ int main(int argc, char *argv[])
 
 	}
 
+	//error handling 
+	else if(((argc%2) != 0) && ((strcmp(argv[1],parameters[1]) == 0) || (strcmp(argv[1], parameters[2]) == 0))){
+		fprintf(stderr, "[\033[0;31mERROR\033[0m] Invalid parameter provided!\n");
+		fprintf(stderr, "[\033[0;33mINFO\033[0m ] Use --help option for user manual\n");
+		}
+
+
 	else{
-		printf("[\033[0;31mERROR\033[0m]  Invalid parameters provided!\n");
-		printf("[\033[0;33mINFO\033[0m] Use --help option for user manual\n");
+		fprintf(stderr, "[\033[0;31mERROR\033[0m] Invalid argument provided!\n");
+		fprintf(stderr, "[\033[0;33mINFO\033[0m ] Use --help option for user manual\n");
 		return 0;
 	}
 	
