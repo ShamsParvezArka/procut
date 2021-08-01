@@ -23,5 +23,8 @@ step 4: Run the following commands to intall Procut:
 
 > n.b: Don't remove these directories(bin,join,output) after installation! Otherwise Procut won't run.
 
+## Documentation
+![procut-tutorial](https://user-images.githubusercontent.com/38325426/127767431-e70a4194-5322-4f93-8100-f4340c97d7e7.png)
+
 
 
