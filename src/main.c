@@ -51,16 +51,15 @@ int main(int argc, char *argv[])
 		}
 		else{
 			fprintf(stderr, "[\033[0;31mERROR\033[0m] Cannot start '%s' : No such file\n", in_path);
-			return 0;
+			return 1;
 		}
 	}
 		
 	else if(((argc%2) == 0) && (strcmp(argv[1], parameters[2]) == 0)){
 		FILE *fp;
+		printf("[\033[0;33m*\033[0m] Source video path: ");
+		scanf("%[^\n]", in_path);
 		if((fp = fopen(in_path, "r"))){
-			printf("[\033[0;33m*\033[0m] Source video path: ");
-			scanf("%[^\n]", in_path);
-			
 			time(&start);
 			cut(argc, argv, in_path, buf);
 			merge(buf);
@@ -76,7 +75,7 @@ int main(int argc, char *argv[])
 		}
 		else{
 			fprintf(stderr, "[\033[0;31mERROR\033[0m] Cannot start '%s' : No such file\n", in_path);
-			return 0;
+			return 1;
 		}
 	}
 
@@ -94,13 +93,14 @@ int main(int argc, char *argv[])
 	else if(((argc%2) != 0) && ((strcmp(argv[1],parameters[1]) == 0) || (strcmp(argv[1], parameters[2]) == 0))){
 		fprintf(stderr, "[\033[0;31mERROR\033[0m] Invalid parameter provided!\n");
 		fprintf(stderr, "[\033[0;33mINFO\033[0m ] Use --help option for user manual\n");
+		return 1;
 		}
 
 
 	else{
 		fprintf(stderr, "[\033[0;31mERROR\033[0m] Invalid argument provided!\n");
 		fprintf(stderr, "[\033[0;33mINFO\033[0m ] Use --help option for user manual\n");
-		return 0;
+		return 1;
 	}
 	
 	
