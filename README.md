@@ -20,6 +20,7 @@ step 4: Run the following commands to intall Procut:
 
 	$ sudo chmod +x build.sh
 	$ ./buid.sh
+	$ make
 
 > n.b: Don't remove these directories(bin,join,output) after installation! Otherwise Procut won't run.
 
