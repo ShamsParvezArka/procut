@@ -42,22 +42,44 @@ void merge(char buf[CAP])
 	
 }
 
-void only_merge(void)
-{
-	FILE *fp;
-	DIR *path;
-	struct dirent *dir;
-	path = opendir("merge");
-	
-	if(path){
-		fp = fopen("merge/l", "w+");
-		while((dir = readdir(path)) != NULL){
-			if(dir -> d_name[0] != '.' && dir -> d_name[0] != 'l'){
-				fprintf(fp, "file %s\n", dir -> d_name);
+void sort(char *entries[CAP], int count) {
+	char *x;
+
+	for (int i=0; i<count; i++) {
+		for (int j=i+1; j<count; j++) {
+			if (strcmp(entries[i], entries[j]) > 0) {
+				x = entries[j];
+				entries[j] = entries[i];
+				entries[i] = x;
 			}
 		}
+	}
+}
+
+void only_merge(void)
+{
+	int count = 0;
+	char *entries[CAP] = {};
+	FILE *fp;
+	const char *dir_path;
+	DIR *dir = opendir("merge");
+	
+	struct dirent *ent = readdir(dir);
+	if(dir){
+		fp = fopen("merge/l", "w+");
+		while(ent != NULL) {
+			if(ent->d_name[0] != '.' && ent->d_name[0] != 'l'){
+				entries[count] = ent->d_name;
+				count += 1;
+			}
+			ent = readdir(dir);
+		}
+		closedir(dir);
+		sort(entries, count);
+		for (int i=0; i<count; i++) {
+			fprintf(fp, "file %s\n", entries[i]);
+		}
 		fclose(fp);
-		closedir(path);
 		system("ffmpeg -f concat -i merge/l -c copy output/final.mp4");	
 	}
 

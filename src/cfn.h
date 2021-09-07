@@ -13,4 +13,5 @@ int k = 1;
 void cut(int argc, char *argv[], char in_path[CAP], char buf[CAP]);
 void merge(char buf[CAP]);
 void only_merge(void);
+void sort(char *entries[CAP], int count);
 
